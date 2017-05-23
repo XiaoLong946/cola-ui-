@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./cola-ui/semantic.css"/>
+    <link rel="stylesheet" href="./cola-ui/cola.css"/>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./cola-ui/3rd-core.js"></script>
+    <script src="./cola-ui/semantic.js"></script>
+    <script src="./cola-ui/cola.js"></script>
+</head>
+<body>
+<div c-bind="account.city"></div>
+<!--<c-pager bind="employees"></c-pager>
+<br/>
+<c-table bind="employees" currentPageOnly="true">
+    <template name="lala">
+        <div>
+            <c-button caption="修改" color="yellow" size="small"></c-button>
+            <c-button caption="删除" color="red" size="small"></c-button>
+        </div>
+    </template>
+    <column property="name" caption="名称" template="input-column"></column>
+    <column property="phone" caption="电话" template="input-column"></column>
+    <column property="age" caption="年龄" template="input-column"></column>
+    <column caption="操作" template="lala"></column>
+</c-table>-->
+
+<script>
+    cola(function(model){
+        /*model.describe("employees", {
+         provider: {
+         url:"http://open-data.cola-ui.com/service/employee/find",
+         pageSize:6
+         }
+         });*/
+        model.set("account",{
+            city:"beijing"
+        });
+        var account = model.get("account");
+        account.set("")
+        console.log(account.get("city"));
+    })
+</script>
+</body>
+</html>

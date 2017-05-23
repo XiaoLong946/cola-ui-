@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./cola-ui/semantic.css"/>
+    <link rel="stylesheet" href="./cola-ui/cola.css"/>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./cola-ui/3rd-core.js"></script>
+    <script src="./cola-ui/semantic.js"></script>
+    <script src="./cola-ui/cola.js"></script>
+    <style>
+        box {
+            background-color: #cccccc;
+        }
+
+        flex-box {
+            background-color: #666;
+        }
+
+        v-box > flex-box > c-pager {
+            top: auto;
+            left: auto;
+            right: 3%;
+            bottom: 9%;
+        }
+
+        c-table {
+            width: 96%;
+            height: 96%;
+            margin: 10px auto;
+        }
+
+        #kaka c-input{
+            margin: 40px 0 0 40px;
+        }
+
+        #kaka c-button:nth-child(3){
+            margin-left: 40px;
+        }
+    </style>
+</head>
+<body>
+<v-box style="width:100%">
+    <box style="height:100px" id="kaka">
+        <c-input icon="search" c-bind="aa"></c-input>
+        <c-button color="blue">查询</c-button>
+        <c-button color="green">添加</c-button>
+    </box>
+    <flex-box>
+        <c-table bind="filter(employees,aa)" currentPageOnly="true">
+            <template name="lala">
+                <div>
+                    <c-button caption="修改" color="yellow" size="small"></c-button>
+                    <c-button caption="删除" color="red" size="small"></c-button>
+                </div>
+            </template>
+            <column property="name" caption="名称" template="input-column"></column>
+            <column property="phone" caption="电话" template="input-column"></column>
+            <column property="age" caption="年龄" template="input-column"></column>
+            <column caption="操作" template="lala"></column>
+        </c-table>
+        <c-pager bind="employees"></c-pager>
+    </flex-box>
+</v-box>
+
+
+<script>
+    cola(function (model) {
+        /*model.describe("employees",{
+         provider:{
+         pageSize:5
+         }
+         })*/
+        /*model.set("employees", [
+         {name: "张三", phone: "123456", age: "18"},
+         {name: "李四", phone: "654321", age: "19"},
+         {name: "王五", phone: "121212", age: "12"},
+         {name: "赵六", phone: "232323", age: "11"},
+         {name: "钱七", phone: "343434", age: "12"},
+         {name: "杜八", phone: "454545", age: "23"},
+         {name: "张无忌", phone: "565656", age: "45"},
+         {name: "虚竹", phone: "676767", age: "65"},
+         {name: "欧阳锋", phone: "787878", age: "43"},
+         {name: "南帝", phone: "898989", age: "23"},
+         {name: "北丐", phone: "909090", age: "32"},
+         {name: "东邪", phone: "123123", age: "67"},
+         {name: "西毒", phone: "456456", age: "23"},
+         {name: "中神通", phone: "789789", age: "98"},
+         {name: "啦啦啦", phone: "111111", age: "798"},
+         {name: "卡卡卡", phone: "222222", age: "233"},
+         {name: "六六六", phone: "666666", age: "543"}
+         ]);*/
+        model.describe("employees", {
+            provider: {
+                url: "http://open-data.cola-ui.com/service/employee/find",
+                pageSize: 8
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

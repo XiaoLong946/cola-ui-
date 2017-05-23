@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./cola-ui/semantic.css"/>
+    <link rel="stylesheet" href="./cola-ui/cola.css"/>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./cola-ui/3rd-core.js"></script>
+    <script src="./cola-ui/semantic.js"></script>
+    <script src="./cola-ui/cola.js"></script>
+</head>
+<body>
+<c-button c-onclick="getAndSet()">简单的读写</c-button>
+<c-button c-onclick="batchSet()">批量写属性</c-button>
+<hr/>
+<div>
+    <label>Name:</label>
+    <c-label c-bind="person.name"></c-label>
+</div>
+<div>
+    <label>Age:</label>
+    <c-label c-bind="person.age"></c-label>
+</div>
+<div>
+    <label>Gender:</label>
+    <c-label c-bind="person.gender"></c-label>
+</div>
+<div>
+    <label>City:</label>
+    <c-label c-bind="person.address.city"></c-label>
+</div>
+<div>
+    <label>District:</label>
+    <c-label c-bind="person.address.district"></c-label>
+</div><div>
+    <label>Street:</label>
+    <c-label c-bind="person.address.street"></c-label>
+</div>
+<div>
+    <label>zipCode:</label>
+    <c-label c-bind="person.address.zipCode"></c-label>
+</div>
+
+
+<script>
+    cola(function(model){
+        model.set("person",{
+            name:"大娃",
+            age:25,
+            gender:"male",
+            address:{
+                city:"beijing",
+                district:"changping",
+                street:"jiancaicheng",
+                zipCode:666666
+            }
+        });
+        model.action({
+            getAndSet:function(){
+                model.set("person.name","二娃");
+                cola.alert(model.get("person.name"));
+            },
+            batchSet:function(){
+                model.set("person",{
+                    name:"三娃",
+                    age:26,
+                    gender:"male",
+                    address:{
+                        city:"handan",
+                        district:"hanshan",
+                        street:"chuhe",
+                        zipCode:888888
+                    }
+                })
+            }
+        })
+    })
+</script>
+</body>
+</html>

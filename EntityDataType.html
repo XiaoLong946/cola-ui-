@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./cola-ui/semantic.css"/>
+    <link rel="stylesheet" href="./cola-ui/cola.css"/>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./cola-ui/3rd-core.js"></script>
+    <script src="./cola-ui/semantic.js"></script>
+    <script src="./cola-ui/cola.js"></script>
+</head>
+<body>
+<c-form bind="employee">
+    <fields class="cols-2">
+        <field property="name"></field>
+        <field property="age"></field>
+    </fields>
+    <fields class="cols-2">
+        <field property="gender">
+            <label></label>
+            <c-select-button items="0=男;1=女" c-bind="gender"></c-select-button>
+        </field>
+        <field property="email"></field>
+    </fields>
+    <fields class="cols-3">
+        <field property="province"></field>
+        <field property="city"></field>
+        <field property="district"></field>
+    </fields>
+    <field property="comment">
+        <label></label>
+        <c-textarea row="5"></c-textarea>
+    </field>
+    <field>
+        <label></label>
+        <c-checkbox label="我已阅读并同意以上条款" bind="agree"></c-checkbox>
+    </field>
+    <field>
+        <label></label>
+        <messages></messages>
+    </field>
+    <field>
+        <label></label>
+        <c-button class="red" c-onclick="submit()">提交</c-button>
+    </field>
+</c-form>
+
+<script>
+    cola(function (model) {
+        model.dataType({
+            name: "Employee",
+            properties: {
+                name: {
+                    caption: "姓名",
+                    validators: ["required"]
+                },
+                age: {
+                    caption: "年龄",
+                    dataType: "int",
+                    validators: [{
+                        $type: "number",
+                        min: 16,
+                        max: 80
+                    }]
+                },
+                gender: {
+                    caption: "性别"
+                },
+                email: {
+                    caption: "电邮",
+                    validators: [
+                        "email",
+                        function (value) {
+                            if (value && value.toLowerCase().indexOf("qq.com") > 0) {
+                                return "不能使用qq邮箱";
+                            }
+                        }
+                    ]
+                },
+                province: {
+                    caption: "省"
+                },
+                city: {
+                    caption: "市"
+                },
+                district: {
+                    caption: "区"
+                },
+                comment: {
+                    caption: "备注"
+                }
+            }
+        });
+        model.describe("employee", "Employee");
+        model.set("employee", {});
+        model.action({
+            submit: function () {
+                model.get("employee").validate();
+            }
+        })
+    })
+</script>
+</body>
+</html>
